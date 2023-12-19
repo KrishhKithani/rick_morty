@@ -143,130 +143,123 @@ class _HomeScreenState extends State<HomeScreen> {
                         onPressed: fetchData, child: const Text('Retry'))
                   ],
                 ))
-          : Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: characters!.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      print(index);
-                      print(isLoadingMore);
-                      print(characters!.length);
+          : ListView.builder(
+            itemCount: characters!.length +1 ,
+            itemBuilder: (BuildContext context, int index) {
+              print(index);
+              print(isLoadingMore);
+              print(characters!.length);
 
-                      if (index == characters!.length - 1) {
-                        appendList();
-                      }
-                      print('=============$isLoadingMore');
+              if (index == characters!.length - 1) {
+                appendList();
+              }
+              print('=============$isLoadingMore');
 
-                      return Card(
-                        color: const Color.fromRGBO(108, 112, 112, 100),
-                        child: Row(mainAxisSize: MainAxisSize.max, children: [
-                          const SizedBox(width: 10),
-                          Container(
-                              width: MediaQuery.of(context).size.width / 2.4,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(80)),
-                              child: ImageViewer(url: characters![index].image)
-                              ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text((characters![index].id).toString()),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, '/charDetails',
-                                        arguments: characters![index].url);
-                                  },
-                                  child: Text(
-                                    characters![index].name,
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    CircleAvatar(
-                                      backgroundColor:
-                                          (characters![index].status ==
-                                                  "unknown")
-                                              ? Colors.white54
-                                              : (characters![index].status ==
-                                                      "Alive")
-                                                  ? Colors.green
-                                                  : Colors.red,
-                                      radius: 6,
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        '${characters![index].status} - ${characters![index].species}',
-                                        style: const TextStyle(
-                                            color: Colors.white),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                const Text(
-                                  'Last Known Location :',
-                                  style: TextStyle(color: Colors.grey),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, '/locationDetails',
-                                        arguments:
-                                            characters![index].location.url);
-                                  },
-                                  child: Text(characters![index].location.name,
-                                      style:
-                                          const TextStyle(color: Colors.white)),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                const Text('First Seen in :',
-                                    style: TextStyle(color: Colors.grey)),
-                                Text(characters![index].origin.name,
-                                    style:
-                                        const TextStyle(color: Colors.white)),
-                                const SizedBox(
-                                  height: 5,
-                                )
-                              ],
-                            ),
-                          ),
-                        ]),
-                      );
-                    },
-                  ),
+              if(index == characters!.length && isLoadingMore){
+                return const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Center(
+                  child: CircularProgressIndicator(),
                 ),
-                (isLoadingMore)
-                    ? const Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: Center(
-                          child: CircularProgressIndicator(),
+                );
+              }
+              return Card(
+                color: const Color.fromRGBO(108, 112, 112, 100),
+                child: Row(mainAxisSize: MainAxisSize.max, children: [
+                  const SizedBox(width: 10),
+                  Container(
+                      width: MediaQuery.of(context).size.width / 2.4,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(80)),
+                      child: ImageViewer(url: characters![index].image)
+                      ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        const SizedBox(
+                          height: 5,
                         ),
-                      )
-                    : const SizedBox.shrink()
-              ],
-            ),
+                        Text((characters![index].id).toString()),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/charDetails',
+                                arguments: characters![index].url);
+                          },
+                          child: Text(
+                            characters![index].name,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              backgroundColor:
+                                  (characters![index].status ==
+                                          "unknown")
+                                      ? Colors.white54
+                                      : (characters![index].status ==
+                                              "Alive")
+                                          ? Colors.green
+                                          : Colors.red,
+                              radius: 6,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Expanded(
+                              child: Text(
+                                '${characters![index].status} - ${characters![index].species}',
+                                style: const TextStyle(
+                                    color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text(
+                          'Last Known Location :',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, '/locationDetails',
+                                arguments:
+                                    characters![index].location.url);
+                          },
+                          child: Text(characters![index].location.name,
+                              style:
+                                  const TextStyle(color: Colors.white)),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text('First Seen in :',
+                            style: TextStyle(color: Colors.grey)),
+                        Text(characters![index].origin.name,
+                            style:
+                                const TextStyle(color: Colors.white)),
+                        const SizedBox(
+                          height: 5,
+                        )
+                      ],
+                    ),
+                  ),
+                ]),
+              );
+            },
+          ),
     );
   }
 }
