@@ -44,7 +44,7 @@ class _LocationDetailsScreenState extends State<LocationDetailsScreen> {
           isLoading = false;
         });
       } else {
-        print('There is some problem ');
+        print('There is some problem   ');
       }
     } catch (error) {
       if (error is DioException) {
