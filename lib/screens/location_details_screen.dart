@@ -49,7 +49,7 @@ class _LocationDetailsScreenState extends State<LocationDetailsScreen> {
     } catch (error) {
       if (error is DioException) {
         if (error.error is SocketException) {
-          errorMessage = 'No Internet Connection';
+          errorMessage = 'No Internet Connection provided';
         } else {
           errorMessage = error.message!;
         }
