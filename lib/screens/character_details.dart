@@ -88,7 +88,7 @@ class _CharacterDetailsState extends State<CharacterDetails> {
                       ),
                       OutlinedButton(
                         onPressed: getData,
-                        child: const Text('Retry'),
+                        child: const Text('Retry button'),
                       )
                     ],
                   ),
