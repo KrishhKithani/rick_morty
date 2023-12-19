@@ -123,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: const Color.fromRGBO(102, 102, 102, 100),
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text('Rick And Morty app 2 '),
+        title: const Text('Rick And Morty app '),
       ),
       body: characters == null
           ? (isLoading)
